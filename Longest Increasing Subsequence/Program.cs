@@ -7,9 +7,35 @@ namespace Longest_Increasing_Subsequence
     static void Main(string[] args)
     {
       int[] nums = new int[] { 10, 9, 2, 5, 3, 7, 101, 18 }; //  1, 2, 4,3
-      Solution s = new Solution();
+      Solution_Easy s = new Solution_Easy();
       var result = s.LengthOfLIS(nums);
       Console.WriteLine(result);
+    }
+  }
+
+
+  public class Solution_Easy
+  {
+    public int LengthOfLIS(int[] nums)
+    {
+      var length = nums.Length;
+      var dp = new int[length];
+      dp[0] = 1;
+      int max = 1;
+      for (int i = 1; i < length; i++)
+      {
+        dp[i] = 1;
+        for (int j = 0; j < i; j++)
+        {
+          if (nums[i] > nums[j])
+          {
+            dp[i] = Math.Max(dp[i], 1 + dp[j]);
+          }
+        }
+        max = Math.Max(max, dp[i]);
+      }
+
+      return max;
     }
   }
 
